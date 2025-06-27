@@ -1,0 +1,100 @@
+<div class="holdings-container">
+  <mat-table [dataSource]="holdings" class="holdings-table" *ngIf="holdings.length > 0; else noHoldings">
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="symbol">
+      <mat-header-cell *matHeaderCellDef>Symbol</mat-header-cell>
+      <mat-cell *matCellDef="let holding">
+        <div class="symbol-cell">
+          <strong>{{ holding.symbol }}</strong>
+          <div class="company-name">{{ holding.companyName }}</div>
+        </div>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Quantity Column -->
+    <ng-container matColumnDef="quantity">
+      <mat-header-cell *matHeaderCellDef>Quantity</mat-header-cell>
+      <mat-cell *matCellDef="let holding">{{ holding.quantity | number:'1.0-2' }}</mat-cell>
+    </ng-container>
+
+    <!-- Purchase Price Column -->
+    <ng-container matColumnDef="purchasePrice">
+      <mat-header-cell *matHeaderCellDef>Purchase Price</mat-header-cell>
+      <mat-cell *matCellDef="let holding">${{ holding.purchasePrice | number:'1.2-2' }}</mat-cell>
+    </ng-container>
+
+    <!-- Current Price Column -->
+    <ng-container matColumnDef="currentPrice">
+      <mat-header-cell *matHeaderCellDef>Current Price</mat-header-cell>
+      <mat-cell *matCellDef="let holding">
+        <span *ngIf="holding.currentPrice; else noPrice">
+          ${{ holding.currentPrice | number:'1.2-2' }}
+        </span>
+        <ng-template #noPrice>
+          <span class="no-data">N/A</span>
+        </ng-template>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Market Value Column -->
+    <ng-container matColumnDef="marketValue">
+      <mat-header-cell *matHeaderCellDef>Market Value</mat-header-cell>
+      <mat-cell *matCellDef="let holding">
+        <span *ngIf="holding.currentPrice; else noValue">
+          ${{ (holding.quantity * holding.currentPrice) | number:'1.2-2' }}
+        </span>
+        <ng-template #noValue>
+          <span class="no-data">N/A</span>
+        </ng-template>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Gain/Loss Column -->
+    <ng-container matColumnDef="gainLoss">
+      <mat-header-cell *matHeaderCellDef>Gain/Loss</mat-header-cell>
+      <mat-cell *matCellDef="let holding">
+        <span *ngIf="holding.currentPrice; else noGainLoss" 
+              [ngClass]="{
+                'gain': (holding.quantity * holding.currentPrice) > (holding.quantity * holding.purchasePrice),
+                'loss': (holding.quantity * holding.currentPrice) < (holding.quantity * holding.purchasePrice)
+              }">
+          {{ getGainLossDisplay(holding) }}
+        </span>
+        <ng-template #noGainLoss>
+          <span class="no-data">N/A</span>
+        </ng-template>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Actions Column -->
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+      <mat-cell *matCellDef="let holding">
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="editHolding(holding)">
+            <mat-icon>edit</mat-icon>
+            <span>Edit</span>
+          </button>
+          <button mat-menu-item (click)="deleteHolding(holding)">
+            <mat-icon>delete</mat-icon>
+            <span>Delete</span>
+          </button>
+        </mat-menu>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+  <ng-template #noHoldings>
+    <div class="empty-state">
+      <mat-icon class="empty-icon">trending_up</mat-icon>
+      <h3>No Holdings Yet</h3>
+      <p>Add your first holding to start tracking your investments</p>
+    </div>
+  </ng-template>
+</div>

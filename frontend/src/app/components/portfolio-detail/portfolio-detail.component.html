@@ -1,0 +1,69 @@
+<div class="portfolio-detail-container" *ngIf="portfolio">
+  <div class="header">
+    <div class="portfolio-info">
+      <h1>{{ portfolio.name }}</h1>
+      <p class="description" *ngIf="portfolio.description">{{ portfolio.description }}</p>
+    </div>
+    <div class="actions">
+      <button mat-raised-button color="accent" (click)="updatePrices()" [disabled]="updatingPrices">
+        <mat-icon>refresh</mat-icon>
+        {{ updatingPrices ? 'Updating...' : 'Update Prices' }}
+      </button>
+      <button mat-raised-button color="primary" (click)="addHolding()">
+        <mat-icon>add</mat-icon>
+        Add Holding
+      </button>
+    </div>
+  </div>
+
+  <div class="summary-cards" *ngIf="summary">
+    <mat-card class="summary-card">
+      <mat-card-content>
+        <div class="summary-item">
+          <span class="label">Total Value</span>
+          <span class="value">${{ summary.totalValue | number:'1.2-2' }}</span>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    
+    <mat-card class="summary-card">
+      <mat-card-content>
+        <div class="summary-item">
+          <span class="label">Total Cost</span>
+          <span class="value">${{ summary.totalPurchaseValue | number:'1.2-2' }}</span>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    
+    <mat-card class="summary-card" [ngClass]="{'gain': summary.totalGainLoss >= 0, 'loss': summary.totalGainLoss < 0}">
+      <mat-card-content>
+        <div class="summary-item">
+          <span class="label">Gain/Loss</span>
+          <span class="value">
+            {{ summary.totalGainLoss >= 0 ? '+' : '' }}${{ summary.totalGainLoss | number:'1.2-2' }}
+            ({{ summary.totalGainLossPercentage | number:'1.2-2' }}%)
+          </span>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    
+    <mat-card class="summary-card">
+      <mat-card-content>
+        <div class="summary-item">
+          <span class="label">Holdings</span>
+          <span class="value">{{ summary.holdingsCount }}</span>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="holdings-section">
+    <h2>Holdings</h2>
+    <app-holding-list [portfolioId]="portfolio.id"></app-holding-list>
+  </div>
+</div>
+
+<div class="loading" *ngIf="loading">
+  <mat-spinner></mat-spinner>
+  <p>Loading portfolio...</p>
+</div>

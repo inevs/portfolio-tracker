@@ -1,0 +1,85 @@
+.holdings-container {
+  width: 100%;
+}
+
+.holdings-table {
+  width: 100%;
+  margin-top: 16px;
+}
+
+.symbol-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.company-name {
+  font-size: 12px;
+  color: #666;
+}
+
+.gain {
+  color: #4caf50;
+  font-weight: 500;
+}
+
+.loss {
+  color: #f44336;
+  font-weight: 500;
+}
+
+.no-data {
+  color: #999;
+  font-style: italic;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: #666;
+}
+
+.empty-icon {
+  font-size: 48px;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 16px;
+  color: #ccc;
+}
+
+.empty-state h3 {
+  margin: 16px 0 8px;
+  color: #333;
+}
+
+.empty-state p {
+  margin-bottom: 0;
+}
+
+.mat-column-symbol {
+  flex: 0 0 200px;
+}
+
+.mat-column-quantity {
+  flex: 0 0 100px;
+}
+
+.mat-column-purchasePrice {
+  flex: 0 0 120px;
+}
+
+.mat-column-currentPrice {
+  flex: 0 0 120px;
+}
+
+.mat-column-marketValue {
+  flex: 0 0 130px;
+}
+
+.mat-column-gainLoss {
+  flex: 0 0 150px;
+}
+
+.mat-column-actions {
+  flex: 0 0 80px;
+}
