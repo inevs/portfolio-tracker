@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn } from 'typeorm';
-import { Portfolio } from './portfolio.entity';
+import { Portfolio } from '../portfolio/portfolio.entity';
 
 @Entity('holdings')
 export class Holding {

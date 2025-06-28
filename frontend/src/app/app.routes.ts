@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
-import { PortfolioListComponent } from './components/portfolio-list/portfolio-list.component';
-import { PortfolioDetailComponent } from './components/portfolio-detail/portfolio-detail.component';
+import { PortfolioListComponent } from './portfolio/portfolio-list/portfolio-list.component';
+import { PortfolioDetailComponent } from './portfolio/portfolio-detail/portfolio-detail.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/portfolios', pathMatch: 'full' },

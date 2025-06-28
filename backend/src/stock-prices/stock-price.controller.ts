@@ -8,8 +8,8 @@ import {
   HttpException,
   HttpStatus,
 } from '@nestjs/common';
-import { StockPriceService } from '../services/stock-price.service';
-import { HoldingService } from '../services/holding.service';
+import { StockPriceService } from './stock-price.service';
+import { HoldingService } from '../holdings/holding.service';
 
 @Controller('stocks')
 export class StockPriceController {

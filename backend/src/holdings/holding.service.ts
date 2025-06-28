@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Holding } from '../entities/holding.entity';
-import { CreateHoldingDto } from '../dto/create-holding.dto';
-import { UpdateHoldingDto } from '../dto/update-holding.dto';
+import { Holding } from './holding.entity';
+import { CreateHoldingDto } from './create-holding.dto';
+import { UpdateHoldingDto } from './update-holding.dto';
 
 @Injectable()
 export class HoldingService {

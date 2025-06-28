@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToOne, JoinColumn } from 'typeorm';
-import { Holding } from './holding.entity';
+import { Holding } from '../holdings/holding.entity';
 
 export enum TransactionType {
   BUY = 'buy',

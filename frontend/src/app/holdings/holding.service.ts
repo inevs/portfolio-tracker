@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Holding, CreateHoldingDto } from '../models/portfolio.model';
+import { Holding, CreateHoldingDto } from '../shared/models/portfolio.model';
 
 @Injectable({
   providedIn: 'root'

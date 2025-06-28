@@ -8,8 +8,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { CreateHoldingDto } from '../../models/portfolio.model';
-import { StockPriceService, StockSearchResult } from '../../services/stock-price.service';
+import { CreateHoldingDto } from '../../shared/models/portfolio.model';
+import { StockPriceService, StockSearchResult } from '../../stock-prices/stock-price.service';
 import { Observable, of, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap, catchError } from 'rxjs/operators';
 

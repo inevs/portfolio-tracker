@@ -9,8 +9,8 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
-import { Portfolio, CreatePortfolioDto } from '../../models/portfolio.model';
-import { PortfolioService } from '../../services/portfolio.service';
+import { Portfolio, CreatePortfolioDto } from '../../shared/models/portfolio.model';
+import { PortfolioService } from '../portfolio.service';
 import { CreatePortfolioDialogComponent } from '../create-portfolio-dialog/create-portfolio-dialog.component';
 
 @Component({

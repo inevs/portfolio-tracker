@@ -10,9 +10,9 @@ import {
   HttpException,
   HttpStatus,
 } from '@nestjs/common';
-import { HoldingService } from '../services/holding.service';
-import { CreateHoldingDto } from '../dto/create-holding.dto';
-import { UpdateHoldingDto } from '../dto/update-holding.dto';
+import { HoldingService } from './holding.service';
+import { CreateHoldingDto } from './create-holding.dto';
+import { UpdateHoldingDto } from './update-holding.dto';
 
 @Controller('holdings')
 export class HoldingController {

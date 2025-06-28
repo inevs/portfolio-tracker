@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Portfolio } from '../entities/portfolio.entity';
-import { CreatePortfolioDto } from '../dto/create-portfolio.dto';
-import { UpdatePortfolioDto } from '../dto/update-portfolio.dto';
+import { Portfolio } from './portfolio.entity';
+import { CreatePortfolioDto } from './create-portfolio.dto';
+import { UpdatePortfolioDto } from './update-portfolio.dto';
 
 @Injectable()
 export class PortfolioService {

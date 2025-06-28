@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Portfolio, CreatePortfolioDto, PortfolioSummary } from '../models/portfolio.model';
+import { Portfolio, CreatePortfolioDto, PortfolioSummary } from '../shared/models/portfolio.model';
 
 @Injectable({
   providedIn: 'root'

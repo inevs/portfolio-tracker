@@ -7,12 +7,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { Portfolio, PortfolioSummary } from '../../models/portfolio.model';
-import { PortfolioService } from '../../services/portfolio.service';
-import { HoldingService } from '../../services/holding.service';
-import { StockPriceService } from '../../services/stock-price.service';
-import { HoldingListComponent } from '../holding-list/holding-list.component';
-import { AddHoldingDialogComponent } from '../add-holding-dialog/add-holding-dialog.component';
+import { Portfolio, PortfolioSummary } from '../../shared/models/portfolio.model';
+import { PortfolioService } from '../portfolio.service';
+import { HoldingService } from '../../holdings/holding.service';
+import { StockPriceService } from '../../stock-prices/stock-price.service';
+import { HoldingListComponent } from '../../holdings/holding-list/holding-list.component';
+import { AddHoldingDialogComponent } from '../../holdings/add-holding-dialog/add-holding-dialog.component';
 
 @Component({
   selector: 'app-portfolio-detail',

@@ -3,13 +3,15 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { Portfolio, Holding, Transaction } from './entities';
-import { PortfolioController } from './controllers/portfolio.controller';
-import { HoldingController } from './controllers/holding.controller';
-import { StockPriceController } from './controllers/stock-price.controller';
-import { PortfolioService } from './services/portfolio.service';
-import { HoldingService } from './services/holding.service';
-import { StockPriceService } from './services/stock-price.service';
+import { Portfolio } from './portfolio/portfolio.entity';
+import { Holding } from './holdings/holding.entity';
+import { Transaction } from './shared/transaction.entity';
+import { PortfolioController } from './portfolio/portfolio.controller';
+import { HoldingController } from './holdings/holding.controller';
+import { StockPriceController } from './stock-prices/stock-price.controller';
+import { PortfolioService } from './portfolio/portfolio.service';
+import { HoldingService } from './holdings/holding.service';
+import { StockPriceService } from './stock-prices/stock-price.service';
 
 @Module({
   imports: [

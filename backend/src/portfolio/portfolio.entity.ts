@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
-import { Holding } from './holding.entity';
+import { Holding } from '../holdings/holding.entity';
 
 @Entity('portfolios')
 export class Portfolio {

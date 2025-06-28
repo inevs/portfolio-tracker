@@ -5,7 +5,7 @@ import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { CreatePortfolioDto } from '../../models/portfolio.model';
+import { CreatePortfolioDto } from '../../shared/models/portfolio.model';
 
 @Component({
   selector: 'app-create-portfolio-dialog',

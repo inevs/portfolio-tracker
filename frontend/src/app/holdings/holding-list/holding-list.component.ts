@@ -4,8 +4,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
-import { Holding } from '../../models/portfolio.model';
-import { HoldingService } from '../../services/holding.service';
+import { Holding } from '../../shared/models/portfolio.model';
+import { HoldingService } from '../holding.service';
 
 @Component({
   selector: 'app-holding-list',

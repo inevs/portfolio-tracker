@@ -9,9 +9,9 @@ import {
   HttpException,
   HttpStatus,
 } from '@nestjs/common';
-import { PortfolioService } from '../services/portfolio.service';
-import { CreatePortfolioDto } from '../dto/create-portfolio.dto';
-import { UpdatePortfolioDto } from '../dto/update-portfolio.dto';
+import { PortfolioService } from './portfolio.service';
+import { CreatePortfolioDto } from './create-portfolio.dto';
+import { UpdatePortfolioDto } from './update-portfolio.dto';
 
 @Controller('portfolios')
 export class PortfolioController {
