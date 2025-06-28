@@ -1,75 +1,72 @@
-<div class="portfolio-detail-container" *ngIf="portfolio">
-  <div class="header">
-    <div class="portfolio-info">
-      <h1>{{ portfolio.name }}</h1>
-      <p class="description" *ngIf="portfolio.description">{{ portfolio.description }}</p>
-    </div>
-    <div class="actions">
-      <p-button 
-        label="{{ updatingPrices ? 'Updating...' : 'Update Prices' }}" 
-        icon="pi pi-refresh" 
-        severity="secondary"
-        [disabled]="updatingPrices"
-        (onClick)="updatePrices()">
-      </p-button>
-      <p-button 
-        label="Add Holding" 
-        icon="pi pi-plus" 
-        (onClick)="addHolding()">
-      </p-button>
+<div *ngIf="portfolio">
+  <div class="page-header">
+    <div class="page-header-content">
+      <div>
+        <h1 class="page-title">{{ portfolio.name }}</h1>
+        <p class="page-subtitle" *ngIf="portfolio.description">{{ portfolio.description }}</p>
+      </div>
+      <div class="page-actions">
+        <p-button 
+          [label]="updatingPrices ? 'Updating...' : 'Update Prices'" 
+          icon="pi pi-refresh" 
+          severity="secondary"
+          [disabled]="updatingPrices"
+          (onClick)="updatePrices()">
+        </p-button>
+        <p-button 
+          label="Add Holding" 
+          icon="pi pi-plus" 
+          (onClick)="addHolding()">
+        </p-button>
+      </div>
     </div>
   </div>
 
-  <div class="summary-cards" *ngIf="summary">
-    <p-card class="summary-card">
-      <ng-template pTemplate="content">
-        <div class="summary-item">
-          <span class="label">Total Value</span>
-          <span class="value">${{ summary.totalValue | number:'1.2-2' }}</span>
+  <div class="layout-grid" *ngIf="summary">
+    <div class="stats-card card">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <span class="stat-label">Total Value</span>
+          <span class="stat-value primary">${{ summary.totalValue | number:'1.2-2' }}</span>
         </div>
-      </ng-template>
-    </p-card>
-    
-    <p-card class="summary-card">
-      <ng-template pTemplate="content">
-        <div class="summary-item">
-          <span class="label">Total Cost</span>
-          <span class="value">${{ summary.totalPurchaseValue | number:'1.2-2' }}</span>
+        
+        <div class="stat-item">
+          <span class="stat-label">Total Cost</span>
+          <span class="stat-value">${{ summary.totalPurchaseValue | number:'1.2-2' }}</span>
         </div>
-      </ng-template>
-    </p-card>
-    
-    <p-card class="summary-card" [ngClass]="{'gain': summary.totalGainLoss >= 0, 'loss': summary.totalGainLoss < 0}">
-      <ng-template pTemplate="content">
-        <div class="summary-item">
-          <span class="label">Gain/Loss</span>
-          <span class="value">
+        
+        <div class="stat-item">
+          <span class="stat-label">Gain/Loss</span>
+          <span class="stat-value" [ngClass]="{
+            'gain': summary.totalGainLoss >= 0, 
+            'loss': summary.totalGainLoss < 0
+          }">
             {{ summary.totalGainLoss >= 0 ? '+' : '' }}${{ summary.totalGainLoss | number:'1.2-2' }}
-            ({{ summary.totalGainLossPercentage | number:'1.2-2' }}%)
+            <span class="stat-percentage">({{ summary.totalGainLossPercentage | number:'1.2-2' }}%)</span>
           </span>
         </div>
-      </ng-template>
-    </p-card>
-    
-    <p-card class="summary-card">
-      <ng-template pTemplate="content">
-        <div class="summary-item">
-          <span class="label">Holdings</span>
-          <span class="value">{{ summary.holdingsCount }}</span>
+        
+        <div class="stat-item">
+          <span class="stat-label">Holdings</span>
+          <span class="stat-value">{{ summary.holdingsCount }}</span>
         </div>
-      </ng-template>
-    </p-card>
-  </div>
+      </div>
+    </div>
 
-  <div class="holdings-section">
-    <h2>Holdings</h2>
-    <app-holding-list [portfolioId]="portfolio.id"></app-holding-list>
+    <div class="holdings-card card layout-grid-full">
+      <div class="card-header">
+        <h2 class="card-title">Holdings</h2>
+      </div>
+      <app-holding-list [portfolioId]="portfolio.id"></app-holding-list>
+    </div>
   </div>
 </div>
 
-<div class="loading" *ngIf="loading">
-  <p-progressSpinner></p-progressSpinner>
-  <p>Loading portfolio...</p>
+<div class="loading-state" *ngIf="loading">
+  <div class="loading-content">
+    <p-progressSpinner styleClass="loading-spinner"></p-progressSpinner>
+    <p>Loading portfolio...</p>
+  </div>
 </div>
 
 <p-toast></p-toast>

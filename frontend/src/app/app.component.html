@@ -1,17 +1,6 @@
-<p-toolbar>
-  <ng-template pTemplate="start">
-    <span class="toolbar-title">Portfolio Tracker</span>
-  </ng-template>
-  <ng-template pTemplate="end">
-    <p-button 
-      icon="pi pi-th-large" 
-      [text]="true" 
-      routerLink="/portfolios"
-      [rounded]="true">
-    </p-button>
-  </ng-template>
-</p-toolbar>
-
-<main class="main-content">
-  <router-outlet />
-</main>
+<div class="layout-container">
+  <app-topbar></app-topbar>
+  <main class="layout-content">
+    <router-outlet />
+  </main>
+</div>

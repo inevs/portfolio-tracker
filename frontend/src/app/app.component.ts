@@ -1,14 +1,13 @@
 import { Component } from '@angular/core';
-import { RouterOutlet, RouterLink } from '@angular/router';
-import { ToolbarModule } from 'primeng/toolbar';
-import { ButtonModule } from 'primeng/button';
+import { RouterOutlet } from '@angular/router';
+import { AppTopbarComponent } from './components/app-topbar.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, RouterLink, ToolbarModule, ButtonModule],
+  imports: [RouterOutlet, AppTopbarComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'frontend';
+  title = 'Portfolio Tracker';
 }

@@ -1,41 +1,72 @@
-<div class="portfolio-list-container">
-  <div class="header">
-    <h1>Your Portfolios</h1>
-    <p-button label="Create Portfolio" icon="pi pi-plus" (onClick)="openCreateDialog()"></p-button>
-  </div>
-
-  <div class="portfolios-grid" *ngIf="portfolios.length > 0; else noPortfolios">
-    <p-card *ngFor="let portfolio of portfolios" class="portfolio-card" (click)="navigateToPortfolio(portfolio.id)">
-      <ng-template pTemplate="title">{{ portfolio.name }}</ng-template>
-      <ng-template pTemplate="subtitle">{{ portfolio.description || 'No description' }}</ng-template>
-      <ng-template pTemplate="content">
-        <div class="portfolio-stats">
-          <div class="stat">
-            <span class="stat-label">Holdings</span>
-            <span class="stat-value">{{ portfolio.holdings ? portfolio.holdings.length : 0 }}</span>
-          </div>
-          <div class="stat">
-            <span class="stat-label">Created</span>
-            <span class="stat-value">{{ portfolio.createdAt | date:'shortDate' }}</span>
-          </div>
-        </div>
-      </ng-template>
-      <ng-template pTemplate="footer">
-        <p-button label="VIEW" severity="primary" [text]="true"></p-button>
-        <p-button label="EDIT" [text]="true" (onClick)="editPortfolio(portfolio, $event)"></p-button>
-        <p-button label="DELETE" severity="danger" [text]="true" (onClick)="deletePortfolio(portfolio.id, $event)"></p-button>
-      </ng-template>
-    </p-card>
-  </div>
-
-  <ng-template #noPortfolios>
-    <div class="empty-state">
-      <i class="pi pi-folder-open empty-icon"></i>
-      <h2>No Portfolios Yet</h2>
-      <p>Create your first portfolio to start tracking your investments</p>
-      <p-button label="Create Your First Portfolio" icon="pi pi-plus" (onClick)="openCreateDialog()"></p-button>
+<div class="page-header">
+  <div class="page-header-content">
+    <div>
+      <h1 class="page-title">Your Portfolios</h1>
+      <p class="page-subtitle">Manage and track your investment portfolios</p>
     </div>
-  </ng-template>
+    <p-button 
+      label="Create Portfolio" 
+      icon="pi pi-plus" 
+      (onClick)="openCreateDialog()">
+    </p-button>
+  </div>
 </div>
+
+<div class="layout-grid" *ngIf="portfolios.length > 0; else noPortfolios">
+  <div *ngFor="let portfolio of portfolios" class="portfolio-card card" (click)="navigateToPortfolio(portfolio.id)">
+    <div class="card-header">
+      <h3 class="card-title">{{ portfolio.name }}</h3>
+      <p class="card-subtitle">{{ portfolio.description || 'No description' }}</p>
+    </div>
+    
+    <div class="portfolio-stats">
+      <div class="stat-item">
+        <span class="stat-label">Holdings</span>
+        <span class="stat-value">{{ portfolio.holdings ? portfolio.holdings.length : 0 }}</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">Created</span>
+        <span class="stat-value">{{ portfolio.createdAt | date:'shortDate' }}</span>
+      </div>
+    </div>
+
+    <div class="card-actions">
+      <p-button 
+        label="View" 
+        icon="pi pi-eye"
+        [text]="true" 
+        size="small">
+      </p-button>
+      <p-button 
+        label="Edit" 
+        icon="pi pi-pencil"
+        [text]="true" 
+        size="small"
+        severity="secondary"
+        (onClick)="editPortfolio(portfolio, $event)">
+      </p-button>
+      <p-button 
+        icon="pi pi-trash" 
+        [text]="true" 
+        size="small"
+        severity="danger"
+        (onClick)="deletePortfolio(portfolio.id, $event)">
+      </p-button>
+    </div>
+  </div>
+</div>
+
+<ng-template #noPortfolios>
+  <div class="empty-state card">
+    <i class="pi pi-folder-open empty-icon"></i>
+    <h2>No Portfolios Yet</h2>
+    <p>Create your first portfolio to start tracking your investments</p>
+    <p-button 
+      label="Create Your First Portfolio" 
+      icon="pi pi-plus" 
+      (onClick)="openCreateDialog()">
+    </p-button>
+  </div>
+</ng-template>
 
 <p-toast></p-toast>
