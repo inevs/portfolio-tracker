@@ -1,3 +1,5 @@
+__Dies ist eine technische Studie. Der gesamte Code wurde mithilfe von Claude Code erstellt.__
+
 # Securities Portfolio Tracker
 
 A full-stack web application for tracking securities portfolios with real-time data and analytics.
