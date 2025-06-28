@@ -1,12 +1,16 @@
-<mat-toolbar color="primary">
-  <mat-toolbar-row>
-    <span>Portfolio Tracker</span>
-    <span class="toolbar-spacer"></span>
-    <button mat-icon-button routerLink="/portfolios">
-      <mat-icon>dashboard</mat-icon>
-    </button>
-  </mat-toolbar-row>
-</mat-toolbar>
+<p-toolbar>
+  <ng-template pTemplate="start">
+    <span class="toolbar-title">Portfolio Tracker</span>
+  </ng-template>
+  <ng-template pTemplate="end">
+    <p-button 
+      icon="pi pi-th-large" 
+      [text]="true" 
+      routerLink="/portfolios"
+      [rounded]="true">
+    </p-button>
+  </ng-template>
+</p-toolbar>
 
 <main class="main-content">
   <router-outlet />

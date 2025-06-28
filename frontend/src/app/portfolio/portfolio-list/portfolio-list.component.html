@@ -1,47 +1,41 @@
 <div class="portfolio-list-container">
   <div class="header">
     <h1>Your Portfolios</h1>
-    <button mat-raised-button color="primary" (click)="openCreateDialog()">
-      <mat-icon>add</mat-icon>
-      Create Portfolio
-    </button>
+    <p-button label="Create Portfolio" icon="pi pi-plus" (onClick)="openCreateDialog()"></p-button>
   </div>
 
   <div class="portfolios-grid" *ngIf="portfolios.length > 0; else noPortfolios">
-    <mat-card *ngFor="let portfolio of portfolios" class="portfolio-card" (click)="navigateToPortfolio(portfolio.id)">
-      <mat-card-header>
-        <mat-card-title>{{ portfolio.name }}</mat-card-title>
-        <mat-card-subtitle>{{ portfolio.description || 'No description' }}</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content>
+    <p-card *ngFor="let portfolio of portfolios" class="portfolio-card" (click)="navigateToPortfolio(portfolio.id)">
+      <ng-template pTemplate="title">{{ portfolio.name }}</ng-template>
+      <ng-template pTemplate="subtitle">{{ portfolio.description || 'No description' }}</ng-template>
+      <ng-template pTemplate="content">
         <div class="portfolio-stats">
           <div class="stat">
             <span class="stat-label">Holdings</span>
-            <span class="stat-value">{{ portfolio.holdings?.length || 0 }}</span>
+            <span class="stat-value">{{ portfolio.holdings ? portfolio.holdings.length : 0 }}</span>
           </div>
           <div class="stat">
             <span class="stat-label">Created</span>
             <span class="stat-value">{{ portfolio.createdAt | date:'shortDate' }}</span>
           </div>
         </div>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-button color="primary">VIEW</button>
-        <button mat-button (click)="editPortfolio(portfolio, $event)">EDIT</button>
-        <button mat-button color="warn" (click)="deletePortfolio(portfolio.id, $event)">DELETE</button>
-      </mat-card-actions>
-    </mat-card>
+      </ng-template>
+      <ng-template pTemplate="footer">
+        <p-button label="VIEW" severity="primary" [text]="true"></p-button>
+        <p-button label="EDIT" [text]="true" (onClick)="editPortfolio(portfolio, $event)"></p-button>
+        <p-button label="DELETE" severity="danger" [text]="true" (onClick)="deletePortfolio(portfolio.id, $event)"></p-button>
+      </ng-template>
+    </p-card>
   </div>
 
   <ng-template #noPortfolios>
     <div class="empty-state">
-      <mat-icon class="empty-icon">folder_open</mat-icon>
+      <i class="pi pi-folder-open empty-icon"></i>
       <h2>No Portfolios Yet</h2>
       <p>Create your first portfolio to start tracking your investments</p>
-      <button mat-raised-button color="primary" (click)="openCreateDialog()">
-        <mat-icon>add</mat-icon>
-        Create Your First Portfolio
-      </button>
+      <p-button label="Create Your First Portfolio" icon="pi pi-plus" (onClick)="openCreateDialog()"></p-button>
     </div>
   </ng-template>
 </div>
+
+<p-toast></p-toast>

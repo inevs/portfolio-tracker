@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputTextarea } from 'primeng/inputtextarea';
 import { CreatePortfolioDto } from '../../shared/models/portfolio.model';
 
 @Component({
@@ -13,40 +13,74 @@ import { CreatePortfolioDto } from '../../shared/models/portfolio.model';
   imports: [
     CommonModule,
     FormsModule,
-    MatDialogModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule
+    ButtonModule,
+    InputTextModule,
+    InputTextarea
   ],
   template: `
-    <h2 mat-dialog-title>Create New Portfolio</h2>
-    <mat-dialog-content>
-      <form #portfolioForm="ngForm">
-        <mat-form-field class="full-width">
-          <mat-label>Portfolio Name</mat-label>
-          <input matInput [(ngModel)]="portfolio.name" name="name" required>
-        </mat-form-field>
-        
-        <mat-form-field class="full-width">
-          <mat-label>Description (Optional)</mat-label>
-          <textarea matInput [(ngModel)]="portfolio.description" name="description" rows="3"></textarea>
-        </mat-form-field>
-      </form>
-    </mat-dialog-content>
-    <mat-dialog-actions align="end">
-      <button mat-button (click)="onCancel()">Cancel</button>
-      <button mat-raised-button color="primary" [disabled]="!portfolio.name" (click)="onCreate()">
-        Create
-      </button>
-    </mat-dialog-actions>
+    <form #portfolioForm="ngForm" class="portfolio-form">
+      <div class="form-group">
+        <label for="name">Portfolio Name *</label>
+        <input 
+          id="name"
+          type="text" 
+          pInputText 
+          [(ngModel)]="portfolio.name" 
+          name="name" 
+          placeholder="Enter portfolio name"
+          required 
+          class="full-width">
+      </div>
+      
+      <div class="form-group">
+        <label for="description">Description (Optional)</label>
+        <textarea 
+          id="description"
+          pInputTextarea 
+          [(ngModel)]="portfolio.description" 
+          name="description" 
+          placeholder="Enter description"
+          rows="3" 
+          class="full-width">
+        </textarea>
+      </div>
+      
+      <div class="dialog-actions">
+        <p-button 
+          label="Cancel" 
+          severity="secondary" 
+          [text]="true"
+          (onClick)="onCancel()">
+        </p-button>
+        <p-button 
+          label="Create" 
+          [disabled]="!portfolio.name || !portfolio.name.trim()" 
+          (onClick)="onCreate()">
+        </p-button>
+      </div>
+    </form>
   `,
   styles: [`
+    .portfolio-form {
+      padding: 20px;
+      min-width: 400px;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 500;
+    }
     .full-width {
       width: 100%;
-      margin-bottom: 16px;
     }
-    mat-dialog-content {
-      min-width: 400px;
+    .dialog-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 20px;
     }
   `]
 })
@@ -57,7 +91,7 @@ export class CreatePortfolioDialogComponent {
   };
 
   constructor(
-    private dialogRef: MatDialogRef<CreatePortfolioDialogComponent>
+    private dialogRef: DynamicDialogRef
   ) {}
 
   onCancel(): void {
@@ -65,7 +99,7 @@ export class CreatePortfolioDialogComponent {
   }
 
   onCreate(): void {
-    if (this.portfolio.name.trim()) {
+    if (this.portfolio.name && this.portfolio.name.trim()) {
       this.dialogRef.close(this.portfolio);
     }
   }

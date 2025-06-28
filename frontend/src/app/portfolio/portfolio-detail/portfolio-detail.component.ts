@@ -1,12 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { CardModule } from 'primeng/card';
+import { ButtonModule } from 'primeng/button';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 import { Portfolio, PortfolioSummary } from '../../shared/models/portfolio.model';
 import { PortfolioService } from '../portfolio.service';
 import { HoldingService } from '../../holdings/holding.service';
@@ -18,12 +18,10 @@ import { AddHoldingDialogComponent } from '../../holdings/add-holding-dialog/add
   selector: 'app-portfolio-detail',
   imports: [
     CommonModule, 
-    MatCardModule, 
-    MatButtonModule, 
-    MatIconModule, 
-    MatProgressSpinnerModule,
-    MatDialogModule,
-    MatSnackBarModule,
+    CardModule, 
+    ButtonModule, 
+    ProgressSpinnerModule,
+    ToastModule,
     HoldingListComponent
   ],
   templateUrl: './portfolio-detail.component.html',
@@ -42,8 +40,8 @@ export class PortfolioDetailComponent implements OnInit {
     private portfolioService: PortfolioService,
     private holdingService: HoldingService,
     private stockPriceService: StockPriceService,
-    private dialog: MatDialog,
-    private snackBar: MatSnackBar
+    private dialogService: DialogService,
+    private messageService: MessageService
   ) {}
 
   ngOnInit(): void {
@@ -71,15 +69,17 @@ export class PortfolioDetailComponent implements OnInit {
   addHolding(): void {
     if (!this.portfolio) return;
 
-    const dialogRef = this.dialog.open(AddHoldingDialogComponent, {
+    const dialogRef = this.dialogService.open(AddHoldingDialogComponent, {
+      header: 'Add Holding',
+      width: '500px',
       data: { portfolioId: this.portfolio.id }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.onClose.subscribe(result => {
       if (result) {
         this.holdingService.createHolding(result).subscribe({
           next: (holding) => {
-            this.snackBar.open('Holding added successfully', 'Close', { duration: 3000 });
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Holding added successfully' });
             // Reload the portfolio summary to get updated data
             this.loadPortfolioSummary(this.portfolio!.id);
             // Refresh the holdings list
@@ -89,7 +89,7 @@ export class PortfolioDetailComponent implements OnInit {
           },
           error: (error) => {
             console.error('Error adding holding:', error);
-            this.snackBar.open('Error adding holding', 'Close', { duration: 3000 });
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error adding holding' });
           }
         });
       }
@@ -103,11 +103,11 @@ export class PortfolioDetailComponent implements OnInit {
     this.stockPriceService.updatePortfolioPrices(this.portfolio.id).subscribe({
       next: (result) => {
         this.updatingPrices = false;
-        this.snackBar.open(
-          `${result.message}. Updated ${result.updatedCount} holdings.`, 
-          'Close', 
-          { duration: 5000 }
-        );
+        this.messageService.add({ 
+          severity: 'success', 
+          summary: 'Success', 
+          detail: `${result.message}. Updated ${result.updatedCount} holdings.` 
+        });
         // Reload the portfolio summary to show updated values
         this.loadPortfolioSummary(this.portfolio!.id);
         // Refresh the holdings list to show updated prices
@@ -118,7 +118,7 @@ export class PortfolioDetailComponent implements OnInit {
       error: (error) => {
         this.updatingPrices = false;
         console.error('Error updating prices:', error);
-        this.snackBar.open('Error updating stock prices', 'Close', { duration: 3000 });
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error updating stock prices' });
       }
     });
   }

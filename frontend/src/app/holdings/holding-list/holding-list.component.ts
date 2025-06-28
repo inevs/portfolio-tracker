@@ -1,15 +1,15 @@
 import { Component, Input, OnInit, OnChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatTableModule } from '@angular/material/table';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { MatMenuModule } from '@angular/material/menu';
+import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'primeng/button';
+import { MenuModule } from 'primeng/menu';
+import { MenuItem } from 'primeng/api';
 import { Holding } from '../../shared/models/portfolio.model';
 import { HoldingService } from '../holding.service';
 
 @Component({
   selector: 'app-holding-list',
-  imports: [CommonModule, MatTableModule, MatIconModule, MatButtonModule, MatMenuModule],
+  imports: [CommonModule, TableModule, ButtonModule, MenuModule],
   templateUrl: './holding-list.component.html',
   styleUrl: './holding-list.component.css'
 })
@@ -17,13 +17,31 @@ export class HoldingListComponent implements OnInit, OnChanges {
   @Input() portfolioId!: string;
   
   holdings: Holding[] = [];
-  displayedColumns: string[] = ['symbol', 'quantity', 'purchasePrice', 'currentPrice', 'marketValue', 'gainLoss', 'actions'];
+  menuItems: MenuItem[] = [];
 
   constructor(private holdingService: HoldingService) {}
 
   ngOnInit(): void {
     this.loadHoldings();
+    this.setupMenuItems();
   }
+
+  setupMenuItems(): void {
+    this.menuItems = [
+      {
+        label: 'Edit',
+        icon: 'pi pi-pencil',
+        command: () => this.editHolding(this.selectedHolding)
+      },
+      {
+        label: 'Delete',
+        icon: 'pi pi-trash',
+        command: () => this.deleteHolding(this.selectedHolding)
+      }
+    ];
+  }
+
+  selectedHolding!: Holding;
 
   ngOnChanges(): void {
     if (this.portfolioId) {
